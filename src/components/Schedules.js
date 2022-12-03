@@ -3,7 +3,7 @@ import Schedule from './schedule'
 
 const Schedules = ({ schedules }) => {  
   if (schedules  && schedules.length === 0)
-    return null
+    return <h3>No schedule found for this course.</h3>
 
   return (
     <div>
