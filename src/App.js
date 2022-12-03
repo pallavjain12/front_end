@@ -91,13 +91,6 @@ const App = () => {
           showStudents={showStudents}
         />
       }
-      {
-        user != null &&
-        students &&
-        <Students
-          StudentList={students}
-        />      
-      }
     </div>
   )
 }

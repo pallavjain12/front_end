@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Schedules from './Schedules'
+import Students from './Students'
+import scheduleService from '../services/schedule'
 
-const CourseSchedule = ({ courses, showStudents }) => {  
-    debugger
-    if (courses && courses.length == 0)
+const CourseSchedule = ({ courses }) => {  
+    const [ stateCourseId, setCourseId ] = useState(-1)
+
+    const [ students, setStudents ] = useState()
+
+    const showStudents = async (id) => {
+        try {
+          const response = await scheduleService.getStudents(id)
+          setStudents(response)
+          setCourseId(id)
+          debugger
+        }
+        catch(excepton) {
+          alert('Unable to process request at the moment')
+        }
+    }
+    
+    if (courses && courses.length === 0)
     return (
         <div>
             <h2>You have no Courses Scheduled. Enjoy Your free Time! :)</h2>
@@ -36,12 +53,19 @@ const CourseSchedule = ({ courses, showStudents }) => {
                             }
                             </table>
                         }
-                        <button onClick={() => showStudents(c.id)}>
-                            View Students List
-                        </button>
                         <Schedules
                             schedules={c.schedules}
                         />
+                        <button onClick={() => showStudents(c.id)}>
+                            View Students List
+                        </button>
+
+                        {
+                            students && stateCourseId === c.id &&
+                            <Students
+                                StudentList={students}
+                            />
+                        }
                     </div>
             );})}
         </div>
