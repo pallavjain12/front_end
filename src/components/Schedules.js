@@ -2,7 +2,7 @@ import React from 'react'
 import Schedule from './schedule'
 
 const Schedules = ({ schedules }) => {  
-  if (schedules === [])
+  if (schedules  && schedules.length === 0)
     return null
 
   return (
